@@ -2,7 +2,6 @@
 
 int main()
 {
-
 	int number;
 
 	std::cin >> number;
@@ -11,5 +10,4 @@ int main()
 	bool checkInner = ((number / 10) % 10) == ((number / 100) % 10);
 
 	std::cout << checkOuter && checkInner;
-
 }
