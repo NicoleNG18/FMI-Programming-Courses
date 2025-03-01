@@ -8,7 +8,6 @@ int main()
 	std::cin >> first;
 	std::cin >> second;
 
-
 	if (first % second == 0) {
 		isDelimeter = true;
 	} else {
