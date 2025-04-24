@@ -17,8 +17,6 @@ public:
     size_t getSize() const;
     const char* getString() const;
 
-    void resize(unsigned newDataSize);
-
     bool isUsingDynamic() const;
      
 private:
