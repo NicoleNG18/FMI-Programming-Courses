@@ -55,6 +55,38 @@ const char* BasicString::getString() const {
     return !isUsingDynamic() ? staticString : dynamicString;
 }
 
+void BasicString::resize(unsigned newDataSize) {
+ 
+     if (newDataSize < Constants::SSO_COUNT) {
+         if (isUsingDynamic()) {
+             char tmp[Constants::SSO_COUNT + 1];
+             std::strncpy(tmp, this->dynamicString, newDataSize);
+             tmp[newDataSize] = '\0';
+ 
+             delete[] this->dynamicString;
+             std::strcpy(this->staticString, tmp);
+         }
+     }
+     else {
+         if (!isUsingDynamic()) {
+             char* newData = new char[newDataSize + 1];
+             std::strncpy(newData, this->staticString, std::min(this->size, (size_t) newDataSize));
+             newData[std::min(this->size, (size_t) newDataSize)] = '\0';
+ 
+             this->dynamicString = newData;
+         }
+         else {
+             char* newData = new char[newDataSize + 1];
+             std::strncpy(newData, this->dynamicString, std::min(this->size, (size_t)newDataSize));
+             newData[std::min(this->size, (size_t) newDataSize)] = '\0';
+             delete[] this->dynamicString;
+             this->dynamicString = newData;
+         }
+     }
+ 
+     this->size = newDataSize;
+ }
+
 
 bool BasicString::isUsingDynamic() const {
     return this->size >= Constants::SSO_COUNT;
